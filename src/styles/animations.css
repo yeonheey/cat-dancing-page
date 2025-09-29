@@ -1,0 +1,340 @@
+.dancing-cat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.cat-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.cat-wrapper:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.cat-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* 춤추는 애니메이션 */
+.cat-wrapper.dancing {
+  animation: catDance 3s infinite ease-in-out;
+}
+
+.cat-wrapper.dancing .cat-image {
+  animation: catSpin 2s infinite ease-in-out;
+}
+
+/* 메인 댄스 애니메이션 - 상하좌우 움직임 */
+@keyframes catDance {
+  0% {
+    transform: translateY(0px) translateX(0px) scale(1) rotate(0deg);
+    background: rgba(255, 140, 66, 0.1);
+  }
+  10% {
+    transform: translateY(-20px) translateX(-10px) scale(1.05) rotate(-2deg);
+    background: rgba(255, 107, 157, 0.15);
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px) scale(1.1) rotate(3deg);
+    background: rgba(102, 126, 234, 0.15);
+  }
+  40% {
+    transform: translateY(-15px) translateX(-20px) scale(0.95) rotate(-5deg);
+    background: rgba(118, 75, 162, 0.15);
+  }
+  55% {
+    transform: translateY(-35px) translateX(10px) scale(1.08) rotate(4deg);
+    background: rgba(255, 183, 102, 0.15);
+  }
+  70% {
+    transform: translateY(-10px) translateX(-15px) scale(1.02) rotate(-3deg);
+    background: rgba(255, 107, 157, 0.15);
+  }
+  85% {
+    transform: translateY(-25px) translateX(20px) scale(1.06) rotate(2deg);
+    background: rgba(102, 126, 234, 0.15);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1) rotate(0deg);
+    background: rgba(255, 140, 66, 0.1);
+  }
+}
+
+/* 고양이 자체 회전 및 크기 변화 */
+@keyframes catSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg) scale(1.1);
+    filter: hue-rotate(45deg);
+  }
+  50% {
+    transform: rotate(5deg) scale(0.9);
+    filter: hue-rotate(90deg);
+  }
+  75% {
+    transform: rotate(-3deg) scale(1.05);
+    filter: hue-rotate(135deg);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+    filter: hue-rotate(0deg);
+  }
+}
+
+/* 컨트롤 패널 스타일 */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dance-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.dance-button.start {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.dance-button.start:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dance-button.stop {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8c42 100%);
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+.dance-button.stop:hover {
+  background: linear-gradient(135deg, #ff8c42 0%, #ff6b9d 100%);
+  transform: translateY(-2px);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4); }
+  50% { box-shadow: 0 4px 25px rgba(255, 107, 157, 0.6); }
+  100% { box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4); }
+}
+
+.animation-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-indicator {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.status-indicator.inactive {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.status-indicator.active {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  animation: statusGlow 2s infinite;
+}
+
+@keyframes statusGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(76, 175, 80, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.8); }
+}
+
+/* 반응형 스타일 - 기본 적용 */
+@media (max-width: 768px) {
+  .dancing-cat-container {
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .cat-wrapper {
+    width: 250px;
+    height: 250px;
+  }
+
+  .cat-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .dance-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+
+  .control-panel {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cat-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .cat-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .dance-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* 모바일에서 애니메이션 강도 조절 */
+  @keyframes catDance {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px) scale(1) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-15px) translateX(10px) scale(1.05) rotate(2deg);
+    }
+    50% {
+      transform: translateY(-20px) translateX(-10px) scale(0.98) rotate(-2deg);
+    }
+    75% {
+      transform: translateY(-10px) translateX(15px) scale(1.03) rotate(1deg);
+    }
+  }
+}
+
+/* 접근성 향상 */
+@media (prefers-reduced-motion: reduce) {
+  .cat-wrapper.dancing,
+  .cat-wrapper.dancing .cat-image {
+    animation: none;
+  }
+
+  .cat-wrapper.dancing {
+    transform: scale(1.05);
+  }
+
+  .dance-button.stop {
+    animation: none;
+  }
+
+  .status-indicator.active {
+    animation: none;
+  }
+}
+
+/* 포커스 스타일 (키보드 접근성) */
+.dance-button:focus,
+.cat-image:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+}
+
+.cat-image {
+  cursor: pointer;
+}
+
+.cat-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* 추가 UI 컴포넌트 스타일 */
+.accessibility-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  margin-left: 10px;
+}
+
+.device-info {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.device-type {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.instructions {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 15px;
+}
+
+.instructions p {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions li {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* 기기별 최적화 */
+.cat-wrapper.mobile .cat-image {
+  width: 120px;
+  height: 120px;
+}
+
+.cat-wrapper.tablet .cat-image {
+  width: 150px;
+  height: 150px;
+}
+
+.cat-wrapper.desktop .cat-image {
+  width: 200px;
+  height: 200px;
+}
